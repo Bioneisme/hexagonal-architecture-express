@@ -1,5 +1,6 @@
+import { CreateUserCommand } from "../in/create-user.command";
 import { UserEntity } from "../../entities/user.entity";
 
 export interface SaveUserPort {
-  saveUser(user: UserEntity): Promise<boolean>;
+  save(user: CreateUserCommand): Promise<UserEntity>;
 }

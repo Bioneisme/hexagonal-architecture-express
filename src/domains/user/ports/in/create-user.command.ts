@@ -21,4 +21,22 @@ export class CreateUserCommand {
   get password(): string {
     return this._password;
   }
+
+  validate() {
+    if (!this._name) {
+      throw new Error("Name is required");
+    }
+
+    if (!this._email) {
+      throw new Error("Email is required");
+    }
+
+    if (!this._phone) {
+      throw new Error("Phone is required");
+    }
+
+    if (!this._password) {
+      throw new Error("Password is required");
+    }
+  }
 }

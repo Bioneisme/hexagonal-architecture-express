@@ -18,7 +18,7 @@ export default class extends Bootstrap {
     return appDataSource.initialize();
   }
 
-  static get dataSource(): DataSource {
+  static get db(): DataSource {
     return dataSource;
   }
 }
