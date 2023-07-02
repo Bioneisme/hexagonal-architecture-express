@@ -7,6 +7,8 @@ export class CreateUserService implements CreateUserUseCase {
   async createUser(command: CreateUserCommand) {
     const userByEmail = await this._loadUserPort.loadUserByEmail(command.email);
     const userByPhone = await this._loadUserPort.loadUserByPhone(command.phone);
-    return !(userByEmail || userByPhone);
+    if (userByEmail || userByPhone) {
+      return false;
+    }
   }
 }
