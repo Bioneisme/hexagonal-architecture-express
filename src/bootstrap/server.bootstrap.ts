@@ -13,13 +13,13 @@ export default class extends Bootstrap {
       const server = http.createServer(this._app);
 
       server
-        .listen(`${AppService.SERVER.PORT}`)
+        .listen(`${AppService.SERVER.port}`)
         .on("listening", () => {
-          console.log(`Server listening on port: ${AppService.SERVER.PORT}`);
+          console.log(`Server listening on port: ${AppService.SERVER.port}`);
         })
         .on("error", (error) => {
           reject(error);
-          console.log(`Server error on port: ${AppService.SERVER.PORT}`);
+          console.log(`Server error on port: ${AppService.SERVER.port}`);
         });
     });
   }

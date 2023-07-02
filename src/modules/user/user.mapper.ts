@@ -1,4 +1,4 @@
-import { UserOrmEntity } from "../../infrastucture/user.orm-entity";
+import { UserOrmEntity } from "./user.orm-entity";
 import { UserEntity } from "../../domains/entities/user.entity";
 
 export class UserMapper {

@@ -1,30 +1,51 @@
 import * as dotenv from "dotenv";
 import { ServerConfig } from "../configs/server.config";
 import { DatabaseConfig } from "../configs/database.config";
+import { validate } from "class-validator";
+import constants from "../configs/constants.config";
 
 dotenv.config();
 
 export class AppService {
   static get SERVER(): ServerConfig {
-    return {
-      PORT: process.env.SERVER_PORT || 3000,
-      HOST: "localhost",
-    };
+    const config = new ServerConfig();
+    config.port = parseInt(process.env.SERVER_PORT) || constants.DEFAULT_PORT;
+
+    validate(config).then((errors) => {
+      if (errors.length > 0) {
+        throw new Error(errors.toString());
+      }
+    });
+
+    return config;
   }
 
   static get DATABASE(): DatabaseConfig {
-    return {
-      host: process.env.DATABASE_HOST || "localhost",
-      port: parseInt(process.env.DATABASE_PORT) || 5432,
-      username: process.env.DATABASE_USERNAME || "postgres",
-      password: process.env.DATABASE_PASSWORD || "postgres",
-      database: process.env.DATABASE_NAME || "postgres",
-      synchronize: process.env.DATABASE_SYNCHRONIZE === "true" || true,
-      logging: process.env.DATABASE_LOGGING === "true" || true,
-      entities: [
-        process.env.DATABASE_ENTITIES ||
-          "src/infrastructure/**/*.orm-entity.ts",
-      ],
-    };
+    const config = new DatabaseConfig();
+    config.host = process.env.DATABASE_HOST || constants.DEFAULT_DB_HOST;
+    config.port =
+      parseInt(process.env.DATABASE_PORT) || constants.DEFAULT_DB_PORT;
+    config.username =
+      process.env.DATABASE_USERNAME || constants.DEFAULT_DB_USERNAME;
+    config.password =
+      process.env.DATABASE_PASSWORD || constants.DEFAULT_DB_PASSWORD;
+    config.database =
+      process.env.DATABASE_NAME || constants.DEFAULT_DB_DATABASE;
+    config.synchronize =
+      process.env.DATABASE_SYNCHRONIZE === "true" ||
+      constants.DEFAULT_DB_SYNCHRONIZE;
+    config.logging =
+      process.env.DATABASE_LOGGING === "true" || constants.DEFAULT_DB_LOGGING;
+    config.entities = [
+      process.env.DATABASE_ENTITIES || constants.DEFAULT_DB_ENTITIES,
+    ];
+
+    validate(config).then((errors) => {
+      if (errors.length > 0) {
+        throw new Error(errors.toString());
+      }
+    });
+
+    return config;
   }
 }
