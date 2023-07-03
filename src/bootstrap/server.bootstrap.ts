@@ -1,7 +1,7 @@
 import { Bootstrap } from "./base.bootstrap";
 import { Application } from "express";
 import * as http from "http";
-import { AppService } from "./services/app.service";
+import ServerConfig from "./configs/server.config";
 
 export default class extends Bootstrap {
   constructor(private readonly _app: Application) {
@@ -13,13 +13,13 @@ export default class extends Bootstrap {
       const server = http.createServer(this._app);
 
       server
-        .listen(`${AppService.SERVER.port}`)
+        .listen(`${ServerConfig.SERVER_PORT}`)
         .on("listening", () => {
-          console.log(`Server listening on port: ${AppService.SERVER.port}`);
+          console.log(`Server listening on port: ${ServerConfig.SERVER_PORT}`);
         })
         .on("error", (error) => {
           reject(error);
-          console.log(`Server error on port: ${AppService.SERVER.port}`);
+          console.log(`Server error on port: ${ServerConfig.SERVER_PORT}`);
         });
     });
   }

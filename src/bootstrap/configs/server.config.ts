@@ -1,8 +1,19 @@
-import { IsInt, Max, Min } from "class-validator";
+import { validateSync } from "class-validator";
+import { InitializeFromEnv, ToInt } from "../../helpers/decorators";
 
-export class ServerConfig {
-  @IsInt()
-  @Min(1)
-  @Max(65535)
-  port: number;
+class ServerConfig {
+  @ToInt()
+  @InitializeFromEnv()
+  static SERVER_PORT: number;
+
+  public static validate(): void {
+    const errors = validateSync(this);
+
+    if (errors.length > 0) {
+      throw new Error("Invalid configuration: " + JSON.stringify(errors));
+    }
+  }
 }
+
+ServerConfig.validate();
+export default ServerConfig;

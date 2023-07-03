@@ -1,12 +1,11 @@
-export default class ConstantsConfig {
-  static DEFAULT_PORT = 3000;
-
-  static DEFAULT_DB_HOST = "localhost";
-  static DEFAULT_DB_PORT = 5432;
-  static DEFAULT_DB_USERNAME = "postgres";
-  static DEFAULT_DB_PASSWORD = "postgres";
-  static DEFAULT_DB_DATABASE = "postgres";
-  static DEFAULT_DB_SYNCHRONIZE = true;
-  static DEFAULT_DB_LOGGING = true;
-  static DEFAULT_DB_ENTITIES = "src/modules/**/*.orm-entity.ts";
-}
+export const ConstantsConfig: { [key: string]: any } = {
+  SERVER_PORT: 3000,
+  DB_HOST: "localhost",
+  DB_PORT: 5432,
+  DB_USERNAME: "postgres",
+  DB_PASSWORD: "postgres",
+  DB_DATABASE: "postgres",
+  DB_SYNCHRONIZE: true,
+  DB_LOGGING: true,
+  DB_ENTITIES: ["src/modules/**/*.orm-entity.ts"],
+};

@@ -1,16 +1,22 @@
 import { Bootstrap } from "./base.bootstrap";
 import { DataSource } from "typeorm";
-import { AppService } from "./services/app.service";
+import DatabaseConfig from "./configs/database.config";
 
 let dataSource: DataSource;
 export default class extends Bootstrap {
   init(): Promise<DataSource> {
-    const config = AppService.DATABASE;
-    console.log(config);
+    const config = DatabaseConfig;
 
     const appDataSource = new DataSource({
       type: "postgres",
-      ...config,
+      host: config.DB_HOST,
+      port: config.DB_PORT,
+      username: config.DB_USERNAME,
+      password: config.DB_PASSWORD,
+      database: config.DB_DATABASE,
+      synchronize: config.DB_SYNCHRONIZE,
+      logging: config.DB_LOGGING,
+      entities: config.DB_ENTITIES,
     });
 
     dataSource = appDataSource;

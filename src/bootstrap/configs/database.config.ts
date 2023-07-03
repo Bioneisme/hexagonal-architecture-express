@@ -1,29 +1,47 @@
-import { IsArray, IsBoolean, IsInt, IsString, Max, Min } from "class-validator";
+import { IsArray, IsString, validateSync } from "class-validator";
+import { InitializeFromEnv, ToBoolean, ToInt } from "../../helpers/decorators";
 
-export class DatabaseConfig {
+class DatabaseConfig {
   @IsString()
-  host: string;
+  @InitializeFromEnv()
+  static DB_HOST: string;
 
-  @IsInt()
-  @Min(1)
-  @Max(65535)
-  port: number;
-
-  @IsString()
-  username: string;
+  @ToInt()
+  @InitializeFromEnv()
+  static DB_PORT: number;
 
   @IsString()
-  password: string;
+  @InitializeFromEnv()
+  static DB_USERNAME: string;
 
   @IsString()
-  database: string;
+  @InitializeFromEnv()
+  static DB_PASSWORD: string;
 
-  @IsBoolean()
-  synchronize: boolean;
+  @IsString()
+  @InitializeFromEnv()
+  static DB_DATABASE: string;
 
-  @IsBoolean()
-  logging: boolean;
+  @ToBoolean()
+  @InitializeFromEnv()
+  static DB_SYNCHRONIZE: boolean;
+
+  @ToBoolean()
+  @InitializeFromEnv()
+  static DB_LOGGING: boolean;
 
   @IsArray()
-  entities: string[];
+  @InitializeFromEnv()
+  static DB_ENTITIES: string[];
+
+  public static validate(): void {
+    const errors = validateSync(this);
+
+    if (errors.length > 0) {
+      throw new Error("Invalid configuration: " + JSON.stringify(errors));
+    }
+  }
 }
+
+DatabaseConfig.validate();
+export default DatabaseConfig;
