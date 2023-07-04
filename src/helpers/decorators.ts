@@ -1,7 +1,12 @@
 import { ConstantsConfig } from "../bootstrap/configs/constants.config";
 
-export function InitializeFromEnv(): Function {
-  return function (target: any, propertyKey: string): void {
+type Target = { [key: string]: any };
+
+export function InitializeFromEnv(): (
+  target: Target,
+  propertyKey: string
+) => void {
+  return function (target: Target, propertyKey: string): void {
     const envKey = propertyKey.toUpperCase();
     target[propertyKey] =
       process.env[envKey] ||
@@ -10,14 +15,14 @@ export function InitializeFromEnv(): Function {
   };
 }
 
-export function ToInt(): Function {
-  return function (target: any, propertyKey: string): void {
+export function ToInt(): (target: Target, propertyKey: string) => void {
+  return function (target: Target, propertyKey: string): void {
     target[propertyKey] = parseInt(target[propertyKey]);
   };
 }
 
-export function ToBoolean(): Function {
-  return function (target: any, propertyKey: string): void {
+export function ToBoolean(): (target: Target, propertyKey: string) => void {
+  return function (target: Target, propertyKey: string): void {
     target[propertyKey] = target[propertyKey] === "true";
   };
 }
