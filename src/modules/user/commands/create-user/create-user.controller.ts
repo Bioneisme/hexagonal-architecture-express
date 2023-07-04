@@ -23,7 +23,7 @@ export class CreateUserController {
       }
 
       return response.status(201).json(UserMapper.mapToOrmEntity(userCreated));
-    } catch (error) {
+    } catch (error: any) {
       return response.status(400).json({ message: error.message });
     }
   }

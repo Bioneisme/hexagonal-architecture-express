@@ -1,3 +1,6 @@
+import * as dotenv from "dotenv";
+dotenv.config();
+
 export const ConstantsConfig: { [key: string]: any } = {
   SERVER_PORT: 3000,
   DB_HOST: "localhost",
@@ -7,5 +10,8 @@ export const ConstantsConfig: { [key: string]: any } = {
   DB_DATABASE: "postgres",
   DB_SYNCHRONIZE: true,
   DB_LOGGING: true,
-  DB_ENTITIES: ["src/modules/**/*.orm-entity.ts"],
+  DB_ENTITIES:
+    process.env.NODE_ENV === "production"
+      ? ["dist/modules/**/*.orm-entity.js"]
+      : ["src/modules/**/*.orm-entity.ts"],
 };

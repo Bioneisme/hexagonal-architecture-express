@@ -8,7 +8,7 @@ import DatabaseBootstrap from "../../../bootstrap/database.bootstrap";
 // TODO: Error handling without null
 @Service()
 export class LoadUser implements LoadUserPort {
-  async loadByEmail(email: string): Promise<UserEntity> {
+  async loadByEmail(email: string): Promise<UserEntity | null> {
     const _repository = DatabaseBootstrap.db.getRepository(UserOrmEntity);
     const result = await _repository.findOne({ where: { email: email } });
 
@@ -16,7 +16,7 @@ export class LoadUser implements LoadUserPort {
     return UserMapper.mapToDomain(result);
   }
 
-  async loadById(id: string): Promise<UserEntity> {
+  async loadById(id: string): Promise<UserEntity | null> {
     const _repository = DatabaseBootstrap.db.getRepository(UserOrmEntity);
     const result = await _repository.findOne({ where: { id: id } });
 
@@ -24,7 +24,7 @@ export class LoadUser implements LoadUserPort {
     return UserMapper.mapToDomain(result);
   }
 
-  async loadByPhone(phone: string): Promise<UserEntity> {
+  async loadByPhone(phone: string): Promise<UserEntity | null> {
     const _repository = DatabaseBootstrap.db.getRepository(UserOrmEntity);
     const result = await _repository.findOne({ where: { phone: phone } });
 

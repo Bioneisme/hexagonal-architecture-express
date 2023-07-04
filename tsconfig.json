@@ -1,17 +1,29 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
+    "module": "CommonJS",
+    "incremental": true,
+    "moduleResolution": "node",
+    "allowJs": true,
+    "resolveJsonModule": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "target": "es6",
+    "target": "ES2021",
     "noImplicitAny": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "strictPropertyInitialization": false,
-    "moduleResolution": "node",
-    "sourceMap": true,
-    "outDir": "dist",
-    "plugins": [{}]
+//    "sourceMap": true,
+    "skipLibCheck": true,
+//    "declaration": true,
+    "removeComments": true,
+    "strict": true,
+    "outDir": "./dist",
+    "rootDir": "src",
   },
-  "include": ["src/**/*"]
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }
