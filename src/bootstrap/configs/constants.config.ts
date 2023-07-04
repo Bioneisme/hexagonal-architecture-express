@@ -1,6 +1,3 @@
-import * as dotenv from "dotenv";
-dotenv.config();
-
 export const ConstantsConfig: { [key: string]: any } = {
   SERVER_PORT: 3000,
   DB_HOST: "localhost",
