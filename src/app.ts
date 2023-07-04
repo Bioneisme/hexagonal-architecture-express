@@ -5,7 +5,7 @@ import helmet from "helmet";
 import cors from "cors";
 import { UserRoute } from "./modules/user/user.route";
 import { Container } from "typedi";
-import ErrorHandler from "./helpers/errors.route";
+import ErrorHandler from "./helpers/response.errors";
 import healthRoute from "./helpers/health.route";
 
 class App {
@@ -49,7 +49,7 @@ class App {
   }
 
   mountErrors(): void {
-    this.app.use(ErrorHandler.notFound);
+    this.app.use(ErrorHandler.routeNotFound);
     this.app.use(ErrorHandler.genericError);
   }
 }

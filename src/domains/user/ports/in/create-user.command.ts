@@ -4,7 +4,9 @@ export class CreateUserCommand {
     private readonly _email: string,
     private readonly _phone: string,
     private readonly _password: string
-  ) {}
+  ) {
+    this.validate();
+  }
 
   get name(): string {
     return this._name;

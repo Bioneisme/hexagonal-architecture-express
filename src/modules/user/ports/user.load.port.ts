@@ -4,31 +4,46 @@ import { UserOrmEntity } from "../user.orm-entity";
 import { UserMapper } from "../user.mapper";
 import { Service } from "typedi";
 import DatabaseBootstrap from "../../../bootstrap/database.bootstrap";
+import { UserNotFoundError } from "../../../domains/user/entities/user.errors";
 
-// TODO: Error handling without null
 @Service()
 export class LoadUser implements LoadUserPort {
-  async loadByEmail(email: string): Promise<UserEntity | null> {
+  async loadByEmail(email: string): Promise<UserEntity> {
     const _repository = DatabaseBootstrap.db.getRepository(UserOrmEntity);
     const result = await _repository.findOne({ where: { email: email } });
 
-    if (!result) return null;
+    if (!result) {
+      throw new UserNotFoundError();
+    }
     return UserMapper.mapToDomain(result);
   }
 
-  async loadById(id: string): Promise<UserEntity | null> {
+  async loadById(id: string): Promise<UserEntity> {
     const _repository = DatabaseBootstrap.db.getRepository(UserOrmEntity);
     const result = await _repository.findOne({ where: { id: id } });
 
-    if (!result) return null;
+    if (!result) {
+      throw new UserNotFoundError();
+    }
     return UserMapper.mapToDomain(result);
   }
 
-  async loadByPhone(phone: string): Promise<UserEntity | null> {
+  async loadByPhone(phone: string): Promise<UserEntity> {
     const _repository = DatabaseBootstrap.db.getRepository(UserOrmEntity);
     const result = await _repository.findOne({ where: { phone: phone } });
 
-    if (!result) return null;
+    if (!result) {
+      throw new UserNotFoundError();
+    }
     return UserMapper.mapToDomain(result);
+  }
+
+  async checkUserExists(email: string, phone: string): Promise<boolean> {
+    const _repository = DatabaseBootstrap.db.getRepository(UserOrmEntity);
+    const result = await _repository.findOne({
+      where: [{ email: email }, { phone: phone }],
+    });
+
+    return result !== null;
   }
 }

@@ -1,5 +1,6 @@
 import { IsArray, IsString, validateSync } from "class-validator";
 import { InitializeFromEnv, ToBoolean, ToInt } from "../../helpers/decorators";
+import { ConfigurationError } from "./configuration.errors";
 
 class DatabaseConfig {
   @IsString()
@@ -38,7 +39,7 @@ class DatabaseConfig {
     const errors = validateSync(this);
 
     if (errors.length > 0) {
-      throw new Error("Invalid configuration: " + JSON.stringify(errors));
+      throw new ConfigurationError(errors);
     }
   }
 }

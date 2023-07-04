@@ -3,6 +3,7 @@ import { CreateUserCommand } from "../ports/in/create-user.command";
 import { LoadUserPort } from "../ports/out/load-user.port";
 import { SaveUserPort } from "../ports/out/save-user.port";
 import { UserEntity } from "../entities/user.entity";
+import { UserAlreadyExistsError } from "./user.service.errors";
 
 export class CreateUserService implements CreateUserUseCase {
   constructor(
@@ -11,12 +12,13 @@ export class CreateUserService implements CreateUserUseCase {
   ) {}
 
   async createUser(command: CreateUserCommand): Promise<UserEntity> {
-    command.validate();
+    const userExists = await this._loadUserPort.checkUserExists(
+      command.email,
+      command.phone
+    );
 
-    const userByEmail = await this._loadUserPort.loadByEmail(command.email);
-    const userByPhone = await this._loadUserPort.loadByPhone(command.phone);
-    if (userByEmail || userByPhone) {
-      throw new Error("User already exists");
+    if (userExists) {
+      throw new UserAlreadyExistsError();
     }
 
     return await this._saveUserPort.save(command);

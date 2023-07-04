@@ -4,7 +4,7 @@
   "description": "",
   "main": "dist/index.mjs",
   "scripts": {
-    "dev": "NODE_ENV=development && nodemon .",
+    "dev": "nodemon .",
     "start": "NODE_ENV=production && tsc --build && node dist/index.js",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix",

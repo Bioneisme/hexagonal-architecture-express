@@ -1,5 +1,6 @@
 import { validateSync } from "class-validator";
 import { InitializeFromEnv, ToInt } from "../../helpers/decorators";
+import { ConfigurationError } from "./configuration.errors";
 
 class ServerConfig {
   @ToInt()
@@ -10,7 +11,7 @@ class ServerConfig {
     const errors = validateSync(this);
 
     if (errors.length > 0) {
-      throw new Error("Invalid configuration: " + JSON.stringify(errors));
+      throw new ConfigurationError(errors);
     }
   }
 }
