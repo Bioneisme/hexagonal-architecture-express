@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { IError } from "./interfaces/error.interface";
+import { IError } from "../interfaces/error.interface";
 
 export default class {
   static routeNotFound(req: Request, res: Response) {

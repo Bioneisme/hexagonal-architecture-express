@@ -1,8 +1,8 @@
-import { UserOrmEntity } from "./user.orm-entity";
-import { UserEntity } from "../../domains/user/entities/user.entity";
+import { UserModels } from "../models/user.models";
+import { UserEntity } from "../../../domains/user/entities/user.entity";
 
 export class UserMapper {
-  static mapToDomain(user: UserOrmEntity): UserEntity {
+  static mapToDomain(user: UserModels): UserEntity {
     return new UserEntity(
       user.id,
       user.name,
@@ -12,8 +12,8 @@ export class UserMapper {
     );
   }
 
-  static mapToOrmEntity(user: UserEntity): UserOrmEntity {
-    const userOrmEntity = new UserOrmEntity();
+  static mapToOrmEntity(user: UserEntity): UserModels {
+    const userOrmEntity = new UserModels();
     userOrmEntity.id = user.id;
     userOrmEntity.name = user.name;
     userOrmEntity.email = user.email;

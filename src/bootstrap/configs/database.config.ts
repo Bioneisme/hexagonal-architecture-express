@@ -1,6 +1,7 @@
 import { IsArray, IsString, validateSync } from "class-validator";
-import { InitializeFromEnv, ToBoolean, ToInt } from "../../helpers/decorators";
+import { InitializeFromEnv } from "../../shared/decorators/env.decorator";
 import { ConfigurationError } from "./configuration.errors";
+import { ToBoolean, ToInt } from "../../shared/decorators/primitive.decorator";
 
 class DatabaseConfig {
   @IsString()

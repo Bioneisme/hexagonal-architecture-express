@@ -9,6 +9,6 @@ export const ConstantsConfig: { [key: string]: any } = {
   DB_LOGGING: true,
   DB_ENTITIES:
     process.env.NODE_ENV === "production"
-      ? ["dist/modules/**/*.orm-entity.js"]
-      : ["src/modules/**/*.orm-entity.ts"],
+      ? ["dist/modules/**/*.models.js"]
+      : ["src/modules/**/*.models.ts"],
 };

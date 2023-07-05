@@ -1,4 +1,4 @@
-import { IError } from "../../../helpers/interfaces/error.interface";
+import { IError } from "../../../shared/interfaces/error.interface";
 
 export class UserNotFoundError extends Error implements IError {
   code: number = 404;

@@ -1,4 +1,4 @@
-import { IError } from "../../../helpers/interfaces/error.interface";
+import { IError } from "../../../shared/interfaces/error.interface";
 
 export class UserAlreadyExistsError extends Error implements IError {
   code: number = 409;

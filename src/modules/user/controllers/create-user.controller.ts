@@ -2,9 +2,9 @@ import { NextFunction, Request, Response } from "express";
 import { CreateUserCommand } from "../../../domains/user/ports/in/create-user.command";
 import { CreateUserService } from "../../../domains/user/services/create-user.service";
 import { Container, Service } from "typedi";
-import { LoadUser } from "../ports/user.load.port";
-import { SaveUser } from "../ports/user.save.port";
-import { UserMapper } from "../user.mapper";
+import { LoadUser } from "../repositories/load-user.repository";
+import { SaveUser } from "../repositories/save-user.repository";
+import { UserMapper } from "../mappers/user.mapper";
 
 @Service()
 export class CreateUserController {

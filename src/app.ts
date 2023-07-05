@@ -1,23 +1,19 @@
-import express, {
-  Application,
-  NextFunction,
-  Request,
-  Response,
-  Router,
-} from "express";
+import express, { Application, Router } from "express";
 import compression from "compression";
 import hpp from "hpp";
 import helmet from "helmet";
 import cors from "cors";
-import { UserRoute } from "./modules/user/user.route";
+import { UserRoute } from "./modules/user/routes/user.route";
 import { Container } from "typedi";
-import ErrorHandler from "./helpers/response.errors";
-import healthRoute from "./helpers/health.route";
-import { IError } from "./helpers/interfaces/error.interface";
+import ErrorHandler from "./shared/errors/http.error";
+import healthRoute from "./shared/routes/health.route";
+import { LoggingMiddleware } from "./shared/middlewares/logging.middleware";
 
 class App {
   readonly app: Application;
   readonly userRoute: Router;
+  readonly loggingMiddleware: any;
+
   constructor() {
     this.app = express();
     this.userRoute = Container.get(UserRoute).router;
@@ -49,13 +45,14 @@ class App {
     this.app.use(compression());
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));
+    this.app.use(LoggingMiddleware.log);
   }
 
-  mountRoutes(): void {
+  mountRoutes() {
     this.app.use("/users", this.userRoute);
   }
 
-  mountErrors(): void {
+  mountErrors() {
     this.app.use(ErrorHandler.routeNotFound);
     this.app.use(ErrorHandler.genericError);
   }
