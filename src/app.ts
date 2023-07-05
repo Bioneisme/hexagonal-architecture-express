@@ -1,4 +1,10 @@
-import express, { Application, Router } from "express";
+import express, {
+  Application,
+  NextFunction,
+  Request,
+  Response,
+  Router,
+} from "express";
 import compression from "compression";
 import hpp from "hpp";
 import helmet from "helmet";
@@ -7,6 +13,7 @@ import { UserRoute } from "./modules/user/user.route";
 import { Container } from "typedi";
 import ErrorHandler from "./helpers/response.errors";
 import healthRoute from "./helpers/health.route";
+import { IError } from "./helpers/interfaces/error.interface";
 
 class App {
   readonly app: Application;
