@@ -3,7 +3,7 @@ import { DataSource } from "typeorm";
 import DatabaseConfig from "./configs/database.config";
 
 let dataSource: DataSource;
-export default class extends Bootstrap {
+export class DatabaseBootstrap extends Bootstrap {
   init(): Promise<DataSource> {
     const config = DatabaseConfig;
 

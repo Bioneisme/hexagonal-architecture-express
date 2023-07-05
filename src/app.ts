@@ -5,9 +5,9 @@ import helmet from "helmet";
 import cors from "cors";
 import { UserRoute } from "./modules/user/routes/user.route";
 import { Container } from "typedi";
+import { LoggingMiddleware } from "./shared/middlewares/logging.middleware";
 import ErrorHandler from "./shared/errors/http.error";
 import healthRoute from "./shared/routes/health.route";
-import { LoggingMiddleware } from "./shared/middlewares/logging.middleware";
 
 class App {
   readonly app: Application;

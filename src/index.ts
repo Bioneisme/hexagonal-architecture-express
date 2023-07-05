@@ -1,7 +1,7 @@
 import "reflect-metadata";
 import { Bootstrap } from "./bootstrap/base.bootstrap";
-import ServerBootstrap from "./bootstrap/server.bootstrap";
-import DatabaseBootstrap from "./bootstrap/database.bootstrap";
+import { ServerBootstrap } from "./bootstrap/server.bootstrap";
+import { DatabaseBootstrap } from "./bootstrap/database.bootstrap";
 import Application from "./app";
 
 const serverBootstrap: Bootstrap = new ServerBootstrap(Application);
@@ -13,5 +13,5 @@ async function bootstrap() {
 }
 
 bootstrap().catch((e) => {
-  console.log(e);
+  console.error(e);
 });

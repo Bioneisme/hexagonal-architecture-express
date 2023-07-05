@@ -19,7 +19,7 @@ export class CreateUserController {
 
       const userCreated = await createUserService.createUser(command);
       return response.status(201).json(UserMapper.mapToOrmEntity(userCreated));
-    } catch (error: any) {
+    } catch (error: unknown) {
       next(error);
     }
   }

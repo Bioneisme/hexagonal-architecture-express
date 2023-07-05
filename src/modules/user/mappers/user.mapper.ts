@@ -1,8 +1,8 @@
-import { UserModels } from "../models/user.models";
+import { UserModel } from "../models/user.model";
 import { UserEntity } from "../../../domains/user/entities/user.entity";
 
 export class UserMapper {
-  static mapToDomain(user: UserModels): UserEntity {
+  static mapToDomain(user: UserModel): UserEntity {
     return new UserEntity(
       user.id,
       user.name,
@@ -12,8 +12,8 @@ export class UserMapper {
     );
   }
 
-  static mapToOrmEntity(user: UserEntity): UserModels {
-    const userOrmEntity = new UserModels();
+  static mapToOrmEntity(user: UserEntity): UserModel {
+    const userOrmEntity = new UserModel();
     userOrmEntity.id = user.id;
     userOrmEntity.name = user.name;
     userOrmEntity.email = user.email;

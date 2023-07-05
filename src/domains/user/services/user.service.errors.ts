@@ -1,8 +1,8 @@
 import { IError } from "../../../shared/interfaces/error.interface";
 
 export class UserAlreadyExistsError extends Error implements IError {
-  code: number = 409;
-  constructor(message: string = "User already exists") {
+  code = 409;
+  constructor(message = "User already exists") {
     super(message);
     this.name = "UserAlreadyExistsError";
   }

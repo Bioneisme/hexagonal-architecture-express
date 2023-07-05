@@ -3,7 +3,7 @@ import { Application } from "express";
 import * as http from "http";
 import ServerConfig from "./configs/server.config";
 
-export default class extends Bootstrap {
+export class ServerBootstrap extends Bootstrap {
   constructor(private readonly _app: Application) {
     super();
   }
